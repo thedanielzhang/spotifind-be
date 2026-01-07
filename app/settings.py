@@ -65,7 +65,7 @@ SPOTIFY_SCOPES = _require("SPOTIFY_SCOPES")
 # Frontend / CORS (REQUIRED-ish)
 # ---------------------------------------------------------
 FRONTEND_ADMIN_URL = _require("FRONTEND_ADMIN_URL")
-FRONTEND_ORIGIN = _optional("FRONTEND_ORIGIN")  # optional, but recommended
+FRONTEND_ORIGIN = _require("FRONTEND_ORIGIN")  # optional, but recommended
 
 # ---------------------------------------------------------
 # Optional identity (used for templates)

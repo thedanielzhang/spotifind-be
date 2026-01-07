@@ -10,6 +10,7 @@ from . import crud, schemas
 from .auth import create_admin_token, get_current_admin
 from .settings import (
     FRONTEND_ADMIN_URL,
+    FRONTEND_ORIGIN,
     ADMIN_USERNAME,
     ADMIN_PASSWORD,
     derived_playlist_title,
@@ -26,6 +27,7 @@ from .spotify_client import (
     SpotifyApiError,
 )
 from .services import add_song_to_app_playlist
+print("FRONTEND_ORIGIN =", FRONTEND_ORIGIN)
 
 app = FastAPI()
 
@@ -35,8 +37,7 @@ Base.metadata.create_all(bind=engine)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://127.0.0.1:1234",
-        "http://localhost:1234",
+        FRONTEND_ORIGIN
     ],
     allow_credentials=True,
     allow_methods=["*"],
