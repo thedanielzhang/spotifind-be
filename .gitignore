@@ -3,3 +3,6 @@
 # other things
 app/__pycache__/
 .DS_Store
+# venv
+.venv/
+venv/
