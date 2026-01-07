@@ -77,8 +77,8 @@ SILO_BASE_URL = _optional("SILO_BASE_URL", "http://127.0.0.1")
 # ---------------------------------------------------------
 # Playlist metadata templates (REQUIRED)
 # ---------------------------------------------------------
-PLAYLIST_TITLE_TEMPLATE = _require("PLAYLIST_TITLE_TEMPLATE")
-PLAYLIST_DESCRIPTION_TEMPLATE = _require("PLAYLIST_DESCRIPTION_TEMPLATE")
+PLAYLIST_TITLE_TEMPLATE = f'{SILO_NAME} Playlist'
+PLAYLIST_DESCRIPTION_TEMPLATE = f'A shared playlist for {SILO_NAME}'
 PLAYLIST_COVER_IMAGE_URL = _require("PLAYLIST_COVER_IMAGE_URL")
 
 def derived_playlist_title() -> str:

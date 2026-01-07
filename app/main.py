@@ -14,7 +14,6 @@ from .settings import (
     ADMIN_PASSWORD,
     derived_playlist_title,
     derived_playlist_description,
-    PLAYLIST_COVER_IMAGE_URL,
 )
 from .spotify_client import (
     build_spotify_authorize_url,
@@ -97,7 +96,7 @@ def get_playlist_config_status(db: Session = Depends(get_db)):
 
     title = derived_playlist_title()
     desc = derived_playlist_description()
-    cover = PLAYLIST_COVER_IMAGE_URL
+    cover = ""
 
     if cfg is None:
         return schemas.PlaylistConfigStatus(
