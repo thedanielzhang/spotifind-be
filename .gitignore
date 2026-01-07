@@ -1,0 +1,5 @@
+# Environment variables
+.env
+# other things
+app/__pycache__/
+.DS_Store
