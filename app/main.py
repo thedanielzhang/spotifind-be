@@ -59,15 +59,17 @@ def admin_login(response: Response, creds: schemas.AdminLoginRequest):
 
     token = create_admin_token(sub=creds.username)
 
-    # SameSite=Lax is fine for 127.0.0.1:<port> usage; keep it simple for POC
+    is_https_frontend = FRONTEND_ORIGIN.startswith("https://")
+
     response.set_cookie(
         key="admin_session",
         value=token,
         httponly=True,
-        samesite="lax",
-        secure=False,
+        samesite="none" if is_https_frontend else "lax",
+        secure=True if is_https_frontend else False,
         path="/",
     )
+
     return {"ok": True}
 
 
