@@ -97,25 +97,24 @@ def admin_me(_: str = Depends(get_current_admin)):
 def get_playlist_config_status(db: Session = Depends(get_db)):
     cfg = crud.get_playlist_config(db)
 
-    title = derived_playlist_title()
-    desc = derived_playlist_description()
-    cover = ""
+    default_title = derived_playlist_title()
+    default_desc = derived_playlist_description()
 
     if cfg is None:
         return schemas.PlaylistConfigStatus(
             exists=False,
-            name=title,
+            name=default_title,
             spotify_playlist_id=None,
-            description=desc,
-            cover_image_url=cover,
+            description=default_desc,
+            cover_image_url=None,
         )
 
     return schemas.PlaylistConfigStatus(
         exists=True,
-        name=title,
+        name=cfg.name or default_title,
         spotify_playlist_id=cfg.spotify_playlist_id,
-        description=desc,
-        cover_image_url=cover,
+        description=cfg.description or default_desc,
+        cover_image_url=cfg.cover_image_url,
     )
 
 
@@ -124,10 +123,20 @@ def get_playlist_config_status(db: Session = Depends(get_db)):
 
 @app.post("/playlist/config")
 def create_playlist_config(
+    payload: schemas.PlaylistConfigCreate,
     db: Session = Depends(get_db),
     _: str = Depends(get_current_admin),
 ):
-    crud.ensure_playlist_config_row(db)
+    cfg = crud.ensure_playlist_config_row(db)
+    if payload.name is not None:
+        cfg.name = payload.name
+    if payload.description is not None:
+        cfg.description = payload.description
+    if payload.cover_image_url is not None:
+        cfg.cover_image_url = payload.cover_image_url
+    db.add(cfg)
+    db.commit()
+    db.refresh(cfg)
     return {"ok": True}
 
 

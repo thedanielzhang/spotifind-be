@@ -19,10 +19,9 @@ class AdminLoginRequest(BaseModel):
 
 
 class PlaylistConfigCreate(BaseModel):
-    # we keep this endpoint for admin “config” flow,
-    # but the playlist UI reads derived values from silo_env by default
-    # (this can store additional config later)
-    pass
+    name: str | None = None
+    description: str | None = None
+    cover_image_url: str | None = None
 
 
 class SpotifyConnectStatus(BaseModel):

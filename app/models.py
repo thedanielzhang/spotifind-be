@@ -25,6 +25,11 @@ class PlaylistConfig(Base):
     # Spotify playlist created/linked for this silo
     spotify_playlist_id: Mapped[str | None] = mapped_column(String, nullable=True)
 
+    # User-configurable playlist metadata (overrides defaults from settings)
+    name: Mapped[str | None] = mapped_column(String, nullable=True)
+    description: Mapped[str | None] = mapped_column(String, nullable=True)
+    cover_image_url: Mapped[str | None] = mapped_column(String, nullable=True)
+
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
 
 
